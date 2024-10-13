@@ -1,0 +1,26 @@
+{
+  "name": "jackpassero/window-a3x",
+  "type": "library",
+  "description": "Allows you to manage windows and processes using the AutoItX3.Control component.",
+  "homepage": "https://github.com/jackpassero/window-a3x",
+  "keywords": [
+    "AutoItX3.Control"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Uladzimir Lauretsky",
+      "email": "spamtut@tut.by"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "ext-com_dotnet": "*",
+    "ext-iconv": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "JackPassero\\WindowA3X\\": "src/"
+    }
+  }
+}
