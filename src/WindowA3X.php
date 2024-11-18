@@ -121,6 +121,11 @@ class WindowA3X
         return (bool)$this->com->WinKill($this->handle($handle));
     }
 
+    public function WinGetProcess(string $handle): string
+    {
+        return $this->com->WinGetProcess($this->handle($handle));
+    }
+
     private function handle(string $handle): string
     {
         return '[HANDLE:' . $handle . ']';
