@@ -47,7 +47,7 @@ class WindowA3X
         $this->com->Send($keys, $flag);
     }
 
-    public function WinGetHandle(string|null $title = null): string
+    public function WinGetHandle(?string $title = null): string
     {
         $v = new VARIANT($title, VT_BSTR, CP_UTF8);
         $h = $this->com->WinGetHandle($v);
