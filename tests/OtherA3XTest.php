@@ -72,4 +72,13 @@ class OtherA3XTest extends TestCase
         $this->com->PixelSearch(0, 0, 10, 10, 0x831233);
         $this->assertEquals(1, $this->com->GetAutoItError());
     }
+
+    public function testControlGetHandle()
+    {
+        $hw = $this->com->WinGetHandle();
+        $hc = $this->com->ControlGetHandle($hw);
+        $this->assertNotEmpty($hc);
+    }
+
+
 }

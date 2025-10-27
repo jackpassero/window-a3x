@@ -162,7 +162,8 @@ class WindowA3X
     {
         $vbs = new COM("ScriptControl");
         $vbs->Language = "VBScript";
-        $vbs->AddCode('
+        $vbs->AddCode(
+            '
 Function GetWindowsList(title, text)
     Dim oAutoIt,val,result(),i
     Set oAutoIt=CreateObject("AutoItX3.Control")
@@ -173,7 +174,8 @@ Function GetWindowsList(title, text)
     Next
     GetWindowsList=result
 End Function
-        ');
+        '
+        );
         $ttv = new VARIANT($title, VT_BSTR, CP_UTF8);
         $tev = new VARIANT($text, VT_BSTR, CP_UTF8);
 
@@ -329,7 +331,7 @@ End Function
 
     public function toUTF8(string $text): string|false
     {
-        if($this->encode) {
+        if ($this->encode) {
             return iconv($this->encoding, 'UTF-8//IGNORE', $text);
         }
         return $text;
@@ -667,6 +669,94 @@ End Function
         /** @noinspection PhpUndefinedMethodInspection */
         return $this->com->ControlSend($this->h($handle), '', $controlID, $string, $flag);
     }
+
+    public function ControlGetFocus(string $handle): string
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->ControlGetFocus($this->h($handle));
+    }
+
+    public function ControlGetHandle(string $handle, string $controlID = ''): string
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->ControlGetHandle($this->h($handle), '', $controlID);
+    }
+
+    public function ControlGetPos(string $handle, string $controlID = ''): array
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return [
+            $this->com->ControlGetPosX($handle, '', $controlID),
+            $this->com->ControlGetPosY($handle, '', $controlID),
+            $this->com->ControlGetPosWidth($handle, '', $controlID),
+            $this->com->ControlGetPosHeight($handle, '', $controlID)
+        ];
+    }
+
+    public function ControlGetText(string $handle, string $controlID = ''): string
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->ControlGetText($this->h($handle), '', $controlID);
+    }
+
+    public function ControlSetText(string $handle, string $text, string $controlID = ''): bool
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return (bool)$this->com->ControlSetText($this->h($handle), '', $controlID, $text);
+    }
+
+    public function ControlShow(string $handle, string $controlID = ''): bool
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return (bool)$this->com->ControlShow($this->h($handle), '', $controlID);
+    }
+
+    public function ControlHide(string $handle, string $controlID = ''): bool
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return (bool)$this->com->ControlHide($this->h($handle), '', $controlID);
+    }
+
+    public function ControlEnable(string $handle, string $controlID = ''): bool
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return (bool)$this->com->ControlEnable($this->h($handle), '', $controlID);
+    }
+
+    public function ControlDisable(string $handle, string $controlID = ''): bool
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return (bool)$this->com->ControlDisable($this->h($handle), '', $controlID);
+    }
+
+    public function StatusbarGetText(string $handle, int $part = 1): string
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->StatusbarGetText($this->h($handle), '', $part);
+    }
+
+    public function ControlTreeView(
+        string $handle,
+        string $controlID,
+        string $command,
+        string $option1 = '',
+        string $option2 = ''
+    ): mixed {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->ControlTreeView(...func_get_args());
+    }
+
+    public function ControlListView(
+        string $handle,
+        string $controlID,
+        string $command,
+        string $option1 = '',
+        string $option2 = ''
+    ): mixed {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->com->ControlListView(...func_get_args());
+    }
+
 
     public function setEncoding(string $encoding): void
     {
